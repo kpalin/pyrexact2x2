@@ -1,0 +1,7 @@
+[report]
+omit =
+    setup.py
+    pyrexact2x2/__main__.py
+    pyrexact2x2/_version.py
+    versioneer.py
+    tests/*
