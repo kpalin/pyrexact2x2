@@ -3,12 +3,9 @@ pyrexact2x2
 ===============================
 
 
-.. image:: https://img.shields.io/travis/kpalin/pyrexact2x2.svg
-        :target: https://travis-ci.org/kpalin/pyrexact2x2
-.. image:: https://circleci.com/gh/kpalin/pyrexact2x2.svg?style=svg
-    :target: https://circleci.com/gh/kpalin/pyrexact2x2
-.. image:: https://codecov.io/gh/kpalin/pyrexact2x2/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/kpalin/pyrexact2x2
+.. image:: https://github.com/kpalin/pyrexact2x2/workflows/Python%20Package%20using%20Conda/badge.svg
+        :target: https://github.com/kpalin/pyrexact2x2/
+
 
 
 Python interface to R-package Exact2x2
