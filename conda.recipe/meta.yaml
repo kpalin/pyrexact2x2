@@ -3,7 +3,6 @@
 
 package:
   name: pyrexact2x2
-  
   version: {{ data['version'] }}
 
 source:
@@ -14,26 +13,26 @@ build:
   # separate bld.bat and build.sh files instead of this key.  Add the line
   # "skip: True  # [py<35]" (for example) to limit to Python 3.5 and newer, or
   # "skip: True  # [not win]" to limit to Windows.
+  skip: True  # [py<35]
   script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
   noarch: python
   
   
 
 requirements:
-  # if you need compilers, uncomment these
-  #    read more at https://docs.conda.io/projects/conda-build/en/latest/resources/compiler-tools.html
-  # build:
-  #   - {{ compilers('c') }}
   host:
     - python
     - pip
+    - r-exact2x2
+    - rpy2 
+    - pandas
   run:
     - python
     # dependencies are defined in setup.py
     {% for dep in data['install_requires'] %}
     - {{ dep.lower() }}
     {% endfor %}
-    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+    #{# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
 
 test:
   source_files:
@@ -41,11 +40,16 @@ test:
   requires:
     - pytest
     - pytest-cov
+    - hypothesis
+    - scipy
+    - r-exact2x2
+    - rpy2 
+    - pandas
   commands:
     - pytest tests
 
 about:
   home: https://github.com/kpalin/pyrexact2x2
   summary: Python interface to R-package Exact2x2
-  license: {{ setup_py.get('license') }}
+  license: {{ data.get('license') }}
   license_file: LICENSE
