@@ -228,56 +228,6 @@ def test_uncondExact2x2_difference(
 
 
 
-@settings(max_examples=20,deadline=1000)
-@given(
-    xn1=sub_pairs(MAX_OBSERVED_N),
-    xn2=sub_pairs(MAX_OBSERVED_N),
-    paramtype=st.sampled_from(["difference", "ratio", "oddsratio"]),
-    alternative_tsmethod=alt_tsmehod(),
-    conf_level=st.floats(min_value=0.9, max_value=1.0 - 1e-5),
-    method=st.sampled_from(
-        ["FisherAdj", "simple", "wald-pooled", "wald-unpooled", "score"]
-    ),
-    midp=st.booleans()
-)
-@example(xn1=(1,6),xn2=(1,5),paramtype="difference",alternative_tsmethod=("two.sided","central"),
-    conf_level=0.9,method="FisherAdj",midp=True)
-def test_uncondExact2x2_alt1(
-    xn1,
-    xn2,
-    paramtype,
-    alternative_tsmethod,
-    conf_level,
-    method,
-    midp
-):
-    
-    
-    x1, n1 = xn1
-    x2, n2 = xn2
-    alternative, tsmethod = alternative_tsmethod
-    
-    ret= pyrexact2x2.uncondExact2x2(
-        x1=x1,
-        n1=n1,
-        x2=x2,
-        n2=n2,
-        parmtype=paramtype,
-        alternative=alternative,
-        conf_level=conf_level,
-        method=method,
-        tsmethod=tsmethod,
-        midp=midp,
-
-    )
-    fisher_or,fisher_pvalue = fisher_exact([[x1,n1-x1],[x2,n2-x2]],
-            alternative=alternative.replace(".","-"))
-    
-    assert paramtype!="oddsratio" or alternative!="two.sided" or  ret["p.value"] <= fisher_pvalue,"Unconditional test should be more powerful "+str(ret)
-    assert ret["p.value"] > 0
-    assert ret["p.value"] <= 1
-
-
 
    
 @settings(deadline=2000)
